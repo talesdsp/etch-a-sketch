@@ -56,11 +56,7 @@ function startApp(gridContainer, size) {
   const gridList = document.querySelectorAll(".grid-item");
 
   gridList.forEach(item => {
-    item.addEventListener("touchmove", e => cb(e));
-
-    item.addEventListener("touchstart", e => cb(e));
-
-    item.addEventListener("mouseenter", e => cb(e));
+    item.addEventListener("pointerenter", e => cb(e));
   });
 }
 
