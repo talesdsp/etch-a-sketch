@@ -185,6 +185,21 @@ body {
   }
 }
 
+@media (orientation: portrait) and (min-width: 600px) {
+  #title {
+    font-size: 5.44rem;
+  }
+  .container.l {
+    width: 80%;
+    height: -webkit-max-content;
+    height: -moz-max-content;
+    height: max-content;
+  }
+  #start {
+    margin-top: 21px;
+  }
+}
+
 @media (orientation: landscape) {
   #grid-container {
     display: -ms-grid;
