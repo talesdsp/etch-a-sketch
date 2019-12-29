@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="./style/index.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/icon.min.css"
+    />
+
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="direction">
+      <div class="container l">
+        <h1 id="title">Etch-a-Sketch</h1>
+
+        <form id="form">
+          <div class="direction">
+            <div class="div">
+              <select id="select-color">
+                <option value="black">Black</option>
+                <option value="colored">Colored</option>
+                <option value="greyShades">Shades</option>
+              </select>
+
+              <span id="show-mode"></span>
+              <input id="input-size" type="range" min="3" max="5" value="3" />
+            </div>
+
+            <button type="submit" id="start">Start</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="container r">
+        <div id="grid-container"></div>
+      </div>
+    </div>
+    <footer id="footer">
+      <div id="bye">
+        <i class="code icon"></i>
+        <span>with</span>
+        <i class="heart icon"></i>
+      </div>
+    </footer>
+
+    <script src="./index.js"></script>
+  </body>
+</html>

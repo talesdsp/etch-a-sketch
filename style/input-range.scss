@@ -1,0 +1,72 @@
+$primary-color: linear-gradient(120deg, #fff 0%, #000 100%);
+$secondary-color: #f7777b;
+$gradient-color: linear-gradient(120deg, #95b4fc 0%, #f7777b 100%);
+$shadow: #000;
+$border: #000;
+
+@mixin track {
+  width: 100%;
+  height: 8px;
+  cursor: pointer;
+  animate: 0.2s;
+  box-shadow: 0px 0px 1px $shadow, 3px 5px 10px #95b4fc;
+  background-image: $gradient-color;
+  border-radius: 5px;
+  border: 1px solid $border;
+  outline: none;
+}
+
+@mixin thumb {
+  border: 1px solid $border;
+  height: 13px;
+  width: 21px;
+  border-radius: 21px;
+  background-image: $primary-color;
+  cursor: pointer;
+  outline: none;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  background-color: transparent;
+}
+input[type="range"]:focus {
+  outline: none;
+}
+input[type="range"]::-webkit-slider-runnable-track {
+  @include track();
+}
+input[type="range"]::-webkit-slider-thumb {
+  @include thumb();
+}
+input[type="range"]:focus::-webkit-slider-runnable-track {
+  background-image: $gradient-color;
+  outline: none;
+}
+input[type="range"]::-moz-range-track {
+  @include track();
+}
+input[type="range"]::-moz-range-thumb {
+  @include thumb();
+}
+input[type="range"]::-ms-track {
+  @include track();
+}
+input[type="range"]::-ms-fill-lower {
+  @include track();
+}
+input[type="range"]::-ms-fill-upper {
+  @include track();
+}
+input[type="range"]::-ms-thumb {
+  @include thumb();
+}
+input[type="range"]:focus::-ms-fill-lower {
+  background-image: $gradient-color;
+  outline: none;
+}
+input[type="range"]:focus::-ms-fill-upper {
+  background-image: $gradient-color;
+  outline: none;
+}

@@ -1,0 +1,238 @@
+@import url("https://fonts.googleapis.com/css?family=Pacifico&display=swap");
+@import url("./input-range.css");
+
+$bg-color: linear-gradient(
+  to top,
+  #dbdcd7 0%,
+  #dddcd7 24%,
+  #e2c9cc 30%,
+  #e7627d 46%,
+  #b8235a 59%,
+  #801357 71%,
+  #3d1635 84%,
+  #1c1a27 100%
+);
+
+$primary-color: #e7e774;
+$secondary-color: #f7777b;
+$gradient-color: linear-gradient(120deg, #95b4fc 0%, #f7777b 100%);
+
+$box-shadow: #000;
+$border: black;
+$radius: 0.5rem;
+
+$global-font-size: 10px;
+$content-text-size: 1.2rem;
+$special-font: Pacifico, cursive;
+
+$title-size: 3.4rem;
+$text-shadow: #0f0;
+$padding: 5px 8px;
+
+html {
+  font-size: $global-font-size;
+  font-family: Arial, Helvetica, sans-serif;
+  background-image: $bg-color;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+body {
+  min-height: 100%;
+  margin: 0;
+}
+
+#title {
+  font-weight: normal;
+  height: max-content;
+  margin: 5vh auto 1vh auto;
+  font-family: $special-font;
+  color: $primary-color;
+  text-shadow: 0 0 1px black, 5px 8px 13px $secondary-color;
+  font-size: $title-size;
+  text-align: center;
+}
+
+.div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  flex: 2;
+}
+
+#select-color {
+  font-size: $content-text-size;
+  background-color: #fff;
+  border: none;
+  border-radius: $radius;
+  padding: $padding;
+  font-family: "Helvetica Neue", sans-serif;
+}
+
+.div {
+  width: 100%;
+}
+
+#show-mode {
+  display: block;
+  font-size: $content-text-size;
+  font-family: "Helvetica Neue", sans-serif;
+  text-align: center;
+  background-color: #fff;
+  border: none;
+  border-radius: $radius;
+  padding: $padding;
+  width: 8rem;
+  margin: 0 13px;
+}
+
+#input-size {
+  max-width: 150px;
+  margin: none;
+}
+
+#start {
+  flex: 1;
+  font-family: $special-font;
+  color: #fff;
+  font-size: 2.1rem;
+  font-weight: bold;
+  border-radius: 5px;
+  text-shadow: -1px 0px $border, 0px 1px $border, 1px 0px $border,
+    0px -1px $border;
+  background-color: $secondary-color;
+  padding: 3px 8px;
+  border: 1px solid red;
+  margin: 13px 0;
+  box-shadow: 3px 5px 10px $secondary-color;
+}
+
+#footer {
+  position: fixed;
+  width: 100%;
+  display: block;
+  height: 8vh;
+  bottom: 0;
+  background-color: #dbdcd7;
+}
+#bye {
+  display: inline-block;
+  text-align: center;
+  font-size: 1.6rem;
+  width: 100%;
+  position: absolute;
+  bottom: 10px;
+
+  text-shadow: -1px 0px $border, 0px 1px $border, 1px 0px $border,
+    0px -1px $border;
+
+  .icon {
+    font-size: 2rem;
+  }
+
+  .code.icon {
+    color: #fff;
+  }
+
+  span {
+    font-family: $special-font;
+    color: #fff;
+  }
+
+  .heart.icon {
+    color: $secondary-color;
+  }
+}
+
+* {
+  outline: none !important;
+}
+
+@mixin grid {
+  #grid-container {
+    display: grid;
+    box-sizing: border-box;
+    width: 70vw;
+    height: 70vw;
+    margin: 0 auto 50px auto;
+    background-color: transparent;
+
+    .grid-item {
+      user-select: none;
+      box-sizing: border-box;
+      background-color: #fff;
+      margin: 0;
+      border: 1px solid #aaa;
+      cursor: crosshair;
+    }
+  }
+}
+
+@mixin form {
+  #form {
+    display: block;
+    margin: auto;
+    position: relative;
+    height: max-content;
+    width: 90%;
+  }
+}
+
+@media (orientation: portrait) {
+  @include grid();
+  @include form();
+
+  .container {
+    margin: 5vh auto;
+  }
+  .direction {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  #form {
+    .direction {
+      margin: auto;
+    }
+  }
+}
+
+@media (orientation: landscape) {
+  @include grid();
+
+  .container {
+    align-items: center;
+    margin: 8vh auto auto auto;
+    justify-content: center;
+    text-align: center;
+    &.l {
+      flex: 3;
+    }
+    &.r {
+      flex: 3;
+    }
+  }
+
+  .direction {
+    display: flex;
+  }
+  @include form();
+
+  #form {
+    max-width: 70%;
+    .direction {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  #grid-container {
+    margin-top: 20px;
+    width: 40vw;
+    height: 40vw;
+  }
+}
