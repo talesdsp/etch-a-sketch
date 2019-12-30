@@ -25,7 +25,7 @@ body {
   margin: 5vh auto 1vh auto;
   font-family: Pacifico, cursive;
   color: #e7e774;
-  text-shadow: 0 0 1px black, 5px 8px 13px #f7777b;
+  text-shadow: 0px -1px 3px #aa2, 2px 1px 3px black, 5px 5px 21px #f7777b;
   font-size: 3.4rem;
   text-align: center;
 }
@@ -135,7 +135,7 @@ body {
   outline: none !important;
 }
 
-@media (orientation: portrait) {
+@media (max-width: 640px) {
   #grid-container {
     display: -ms-grid;
     display: grid;
@@ -185,7 +185,54 @@ body {
   }
 }
 
-@media (orientation: portrait) and (min-width: 600px) {
+@media (orientation: portrait) and (min-width: 640px) {
+  #form {
+    display: block;
+    margin: auto;
+    position: relative;
+    height: -webkit-max-content;
+    height: -moz-max-content;
+    height: max-content;
+    width: 90%;
+  }
+  #grid-container {
+    display: -ms-grid;
+    display: grid;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    width: 70vw;
+    height: 70vw;
+    margin: 0 auto 50px auto;
+    background-color: transparent;
+  }
+  #grid-container .grid-item {
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    background-color: #fff;
+    margin: 0;
+    border: 1px solid #aaa;
+    cursor: crosshair;
+  }
+  .container {
+    margin: 5vh auto;
+  }
+  .direction {
+    margin: auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  #form .direction {
+    margin: auto;
+  }
   #title {
     font-size: 5.44rem;
   }
@@ -200,7 +247,7 @@ body {
   }
 }
 
-@media (orientation: landscape) {
+@media (orientation: landscape) and (min-width: 640px) {
   #grid-container {
     display: -ms-grid;
     display: grid;
