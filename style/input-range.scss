@@ -9,7 +9,7 @@ $border: #000;
   height: 8px;
   cursor: pointer;
   animate: 0.2s;
-  box-shadow: 0px 0px 1px $shadow, 3px 5px 10px #95b4fc;
+  box-shadow: 0px 0px 1px $shadow, 3px 3px 10px #95b4fc;
   background-image: $gradient-color;
   border-radius: 5px;
   border: 1px solid $border;
@@ -18,8 +18,8 @@ $border: #000;
 
 @mixin thumb {
   border: 1px solid $border;
-  height: 13px;
-  width: 21px;
+  height: 21px;
+  width: 13px;
   border-radius: 21px;
   background-image: $primary-color;
   cursor: pointer;
@@ -38,7 +38,9 @@ input[type="range"]::-webkit-slider-runnable-track {
   @include track();
 }
 input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
   @include thumb();
+  margin-top: -7px;
 }
 input[type="range"]:focus::-webkit-slider-runnable-track {
   background-image: $gradient-color;
@@ -52,6 +54,7 @@ input[type="range"]::-moz-range-thumb {
 }
 input[type="range"]::-ms-track {
   @include track();
+  appearance: none;
 }
 input[type="range"]::-ms-fill-lower {
   @include track();

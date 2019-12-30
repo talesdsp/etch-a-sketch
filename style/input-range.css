@@ -13,8 +13,8 @@ input[type="range"]::-webkit-slider-runnable-track {
   height: 8px;
   cursor: pointer;
   animate: 0.2s;
-  -webkit-box-shadow: 0px 0px 1px #000, 3px 5px 10px #95b4fc;
-          box-shadow: 0px 0px 1px #000, 3px 5px 10px #95b4fc;
+  -webkit-box-shadow: 0px 0px 1px #000, 3px 3px 10px #95b4fc;
+          box-shadow: 0px 0px 1px #000, 3px 3px 10px #95b4fc;
   background-image: linear-gradient(120deg, #95b4fc 0%, #f7777b 100%);
   border-radius: 5px;
   border: 1px solid #000;
@@ -22,13 +22,15 @@ input[type="range"]::-webkit-slider-runnable-track {
 }
 
 input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
   border: 1px solid #000;
-  height: 13px;
-  width: 21px;
+  height: 21px;
+  width: 13px;
   border-radius: 21px;
   background-image: linear-gradient(120deg, #fff 0%, #000 100%);
   cursor: pointer;
   outline: none;
+  margin-top: -7px;
 }
 
 input[type="range"]:focus::-webkit-slider-runnable-track {
@@ -41,7 +43,7 @@ input[type="range"]::-moz-range-track {
   height: 8px;
   cursor: pointer;
   animate: 0.2s;
-  box-shadow: 0px 0px 1px #000, 3px 5px 10px #95b4fc;
+  box-shadow: 0px 0px 1px #000, 3px 3px 10px #95b4fc;
   background-image: linear-gradient(120deg, #95b4fc 0%, #f7777b 100%);
   border-radius: 5px;
   border: 1px solid #000;
@@ -50,8 +52,8 @@ input[type="range"]::-moz-range-track {
 
 input[type="range"]::-moz-range-thumb {
   border: 1px solid #000;
-  height: 13px;
-  width: 21px;
+  height: 21px;
+  width: 13px;
   border-radius: 21px;
   background-image: linear-gradient(120deg, #fff 0%, #000 100%);
   cursor: pointer;
@@ -63,11 +65,12 @@ input[type="range"]::-ms-track {
   height: 8px;
   cursor: pointer;
   animate: 0.2s;
-  box-shadow: 0px 0px 1px #000, 3px 5px 10px #95b4fc;
+  box-shadow: 0px 0px 1px #000, 3px 3px 10px #95b4fc;
   background-image: linear-gradient(120deg, #95b4fc 0%, #f7777b 100%);
   border-radius: 5px;
   border: 1px solid #000;
   outline: none;
+  appearance: none;
 }
 
 input[type="range"]::-ms-fill-lower {
@@ -75,7 +78,7 @@ input[type="range"]::-ms-fill-lower {
   height: 8px;
   cursor: pointer;
   animate: 0.2s;
-  box-shadow: 0px 0px 1px #000, 3px 5px 10px #95b4fc;
+  box-shadow: 0px 0px 1px #000, 3px 3px 10px #95b4fc;
   background-image: linear-gradient(120deg, #95b4fc 0%, #f7777b 100%);
   border-radius: 5px;
   border: 1px solid #000;
@@ -87,7 +90,7 @@ input[type="range"]::-ms-fill-upper {
   height: 8px;
   cursor: pointer;
   animate: 0.2s;
-  box-shadow: 0px 0px 1px #000, 3px 5px 10px #95b4fc;
+  box-shadow: 0px 0px 1px #000, 3px 3px 10px #95b4fc;
   background-image: linear-gradient(120deg, #95b4fc 0%, #f7777b 100%);
   border-radius: 5px;
   border: 1px solid #000;
@@ -96,8 +99,8 @@ input[type="range"]::-ms-fill-upper {
 
 input[type="range"]::-ms-thumb {
   border: 1px solid #000;
-  height: 13px;
-  width: 21px;
+  height: 21px;
+  width: 13px;
   border-radius: 21px;
   background-image: linear-gradient(120deg, #fff 0%, #000 100%);
   cursor: pointer;
