@@ -22,8 +22,7 @@ $border: black;
 $radius: 0.5rem;
 
 $global-font-size: 10px;
-$content-text-size: 1.2rem;
-$special-font: Pacifico, cursive;
+$special-font: Pacifico;
 
 $title-size: 3.4rem;
 $text-shadow: #0f0;
@@ -66,7 +65,7 @@ body {
 }
 
 #select-color {
-  font-size: $content-text-size;
+  font-size: 1.2rem;
   background-color: #fff;
   border: none;
   border-radius: $radius;
@@ -80,8 +79,9 @@ body {
 
 #show-mode {
   display: block;
-  font-size: $content-text-size;
-  font-family: "Helvetica Neue", sans-serif;
+  font-size: 2rem;
+  font-family: "Comic Sans", arial;
+  font-weight: 300;
   text-align: center;
   background-color: #fff;
   border: none;
@@ -89,6 +89,10 @@ body {
   padding: $padding;
   width: 8rem;
   margin: 0 13px;
+
+  span {
+    font-size: 3rem;
+  }
 }
 
 #input-size {

@@ -1,27 +1,26 @@
 "use strict";
 
-const form = document.querySelector("#form");
-const showMode = document.querySelector("#show-mode");
 const inputSize = document.querySelector("#input-size");
+const showMode = document.querySelector("#show-mode");
 
-window.onload = () => {
-  setMode();
+window.onload = function main() {
+  setMode(showMode, inputSize);
 
-  inputSize.addEventListener("input", setMode);
+  inputSize.addEventListener("input", () => setMode(showMode, inputSize));
 
-  form.addEventListener("submit", e => {
+  document.querySelector("#form").addEventListener("submit", e => {
     e.preventDefault();
     initGrid();
   });
 };
 
-function setMode() {
-  showMode.textContent = Object.freeze(
+function setMode(showMode, { value }) {
+  showMode.innerHTML = Object.freeze(
     {
-      3: () => "TINY",
-      4: () => "STUDENT",
-      5: () => "PRO"
-    }[inputSize.value]()
+      3: () => "noob <span>&#x1F92A;</span>",
+      4: () => "amador <span>&#x1F923;</span>",
+      5: () => "PRO <span>&#x1F911;</span>"
+    }[value]()
   );
 }
 
@@ -29,7 +28,7 @@ function initGrid() {
   const gridContainer = document.querySelector("#grid-container");
 
   reset(gridContainer);
-  startApp(gridContainer, getSize());
+  startApp(gridContainer, gridSize(inputSize));
 }
 
 function reset(gridContainer) {
@@ -38,8 +37,8 @@ function reset(gridContainer) {
   }
 }
 
-function getSize() {
-  return 2 ** parseInt(inputSize.value);
+function gridSize({ value }) {
+  return 2 ** parseInt(value, 10);
 }
 
 function startApp(gridContainer, size) {
@@ -54,14 +53,19 @@ function startApp(gridContainer, size) {
   }
 
   const gridList = document.querySelectorAll(".grid-item");
-
   gridList.forEach(item => {
     item.addEventListener("pointerenter", e => cb(e));
   });
 }
 
 function cb({ target: { style } }) {
-  paint(style, pickColor(style, document.querySelector("#select-color").value));
+  const value = document.querySelector("#select-color").value;
+  paint(style, pickColor(style, value));
+}
+
+function paint(style, actualColor) {
+  style.backgroundColor = actualColor;
+  console.log(style);
 }
 
 function pickColor(style, mode) {
@@ -69,13 +73,10 @@ function pickColor(style, mode) {
     {
       black: () => "#000",
       colored: () => colorfy(),
-      greyShades: () => shader(style)
+      shine: () => new Shades(style).shine(),
+      fade: () => new Shades(style).fade()
     }[mode]()
   );
-}
-function paint(style, actualColor) {
-  console.log(style, actualColor);
-  style.backgroundColor = actualColor;
 }
 
 function colorfy() {
@@ -86,16 +87,36 @@ function randomize() {
   return Math.floor(Math.random() * 255);
 }
 
-function shader({ backgroundColor }) {
-  if (!backgroundColor) {
-    backgroundColor = "rgb(255, 255, 255)";
-  }
-  const [red, green, blue] = validate(backgroundColor);
+class Shades {
+  constructor({ backgroundColor }) {
+    backgroundColor
+      ? (this.backgroundColor = backgroundColor)
+      : (this.backgroundColor = "rgb(255, 255, 255)");
 
-  return `rgb(${red - 25}, ${green - 25}, ${blue - 25})`;
+    [this.red, this.green, this.blue] = validate(this.backgroundColor);
+  }
+
+  /**
+   * gets brighter until a 255 shows up in rgb
+   */
+
+  shine() {
+    return [this.red, this.green, this.blue].filter(x => x >= 255)[0]
+      ? this.backgroundColor
+      : `rgb(${this.red + 25}, ${this.green + 25}, ${this.blue + 25})`;
+  }
+
+  /**
+   * gets darker, until a 25 shows up in rgb
+   */
+  fade() {
+    return [this.red, this.green, this.blue].filter(x => x <= 25)[0]
+      ? this.backgroundColor
+      : `rgb(${this.red - 25}, ${this.green - 25}, ${this.blue - 25})`;
+  }
 }
 
 function validate(bgColor) {
   //return css rgb nums
-  return bgColor.match(/\d{1,3}/g);
+  return bgColor.match(/\d{1,3}/g).map(x => parseInt(x, 10));
 }
