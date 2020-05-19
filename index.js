@@ -1,13 +1,18 @@
 "use strict";
 
+window.onload = Main;
+
 /**
  * Core of the application
  * @returns {void}
  */
 
-window.onload = function main() {
+function Main() {
   const inputSize = document.querySelector("#input-size");
   const showMode = document.querySelector("#show-mode");
+  const button = document.querySelector("#start");
+  const gridContainer = document.querySelector("#grid-container");
+  const select = document.querySelector("#select-color");
 
   updateGameMode(showMode, inputSize);
 
@@ -15,20 +20,16 @@ window.onload = function main() {
     updateGameMode(showMode, inputSize)
   );
 
-  document.querySelector("#form").addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    const gridContainer = document.querySelector("#grid-container");
+  button.addEventListener("pointerdown", () => {
     reset(gridContainer);
     generateContainer(gridContainer, countGridItems(inputSize));
     generateCells(gridContainer, countGridItems(inputSize));
 
-    const gridList = document.querySelectorAll(".grid-item");
-    gridList.forEach((item) => {
-      item.addEventListener("pointerenter", (e) => changeColor(e));
+    gridContainer.childNodes.forEach((item) => {
+      item.addEventListener("pointerover", (e) => changeColor(e, select));
     });
   });
-};
+}
 
 /**
  * @description Generate grid cells on screen
@@ -109,9 +110,8 @@ function countGridItems(element) {
  * @returns {void}
  */
 
-function changeColor(event) {
-  const value = document.querySelector("#select-color").value;
-  paint(event.target.style, pickColor(event.target.style, value));
+function changeColor(event, select) {
+  paint(event.target.style, pickColor(event.target.style, select.value));
 }
 
 /**
@@ -208,6 +208,7 @@ function validate(bgColor) {
 }
 
 module.exports = {
+  Main,
   updateGameMode,
   generateCells,
   generateContainer,
