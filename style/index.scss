@@ -1,8 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Pacifico&display=swap");
 @import url("./input-range.css");
 
-$bg-color: linear-gradient(
-  to top,
+$bg-color: linear-gradient(to top,
   #dbdcd7 0%,
   #dddcd7 24%,
   #e2c9cc 30%,
@@ -10,67 +9,66 @@ $bg-color: linear-gradient(
   #b8235a 59%,
   #801357 71%,
   #3d1635 84%,
-  #1c1a27 100%
-);
+  #1c1a27 100%);
 
-$primary-color: #e7e774;
+$primary-color  : #e7e774;
 $secondary-color: #f7777b;
-$gradient-color: linear-gradient(120deg, #95b4fc 0%, #f7777b 100%);
+$gradient-color : linear-gradient(120deg, #95b4fc 0%, #f7777b 100%);
 
 $box-shadow: #000;
-$border: black;
-$radius: 0.5rem;
+$border    : black;
+$radius    : 0.5rem;
 
 $global-font-size: 10px;
-$special-font: Pacifico;
+$special-font    : Pacifico;
 
-$title-size: 3.4rem;
+$title-size : 3.4rem;
 $text-shadow: #0f0;
-$padding: 5px 8px;
+$padding    : 5px 8px;
 
 html {
-  font-size: $global-font-size;
-  font-family: Arial, Helvetica, sans-serif;
-  background-image: $bg-color;
+  font-size        : $global-font-size;
+  font-family      : Arial, Helvetica, sans-serif;
+  background-image : $bg-color;
   background-repeat: no-repeat;
-  background-size: cover;
-  min-height: 100%;
-  width: 100%;
-  margin: 0;
+  background-size  : cover;
+  min-height       : 100%;
+  width            : 100%;
+  margin           : 0;
 }
 
 body {
   min-height: 100%;
-  margin: 0;
+  margin    : 0;
 }
 
 #title {
   font-weight: normal;
-  height: max-content;
-  margin: 5vh auto 1vh auto;
+  height     : max-content;
+  margin     : 5vh auto 1vh auto;
   font-family: $special-font;
-  color: $primary-color;
+  color      : $primary-color;
   text-shadow: -0px -1px 3px #aa2, 2px 1px 3px $border,
     5px 5px 21px $secondary-color;
-  font-size: $title-size;
+  font-size : $title-size;
   text-align: center;
 }
 
 .div {
-  display: flex;
-  align-items: center;
+  display        : flex;
+  align-items    : center;
   justify-content: center;
-  margin: auto;
-  flex: 2;
+  margin         : auto;
+  flex           : 2;
 }
 
 #select-color {
-  font-size: 1.2rem;
+  font-size       : 1.2rem;
   background-color: #fff;
-  border: none;
-  border-radius: $radius;
-  padding: $padding;
-  font-family: "Helvetica Neue", sans-serif;
+  border          : none;
+  border-radius   : $radius;
+  padding         : $padding;
+  font-family     : "Helvetica Neue", sans-serif;
 }
 
 .div {
@@ -78,17 +76,17 @@ body {
 }
 
 #show-mode {
-  display: block;
-  font-size: 2rem;
-  font-family: "Comic Sans", arial;
-  font-weight: 300;
-  text-align: center;
+  display         : block;
+  font-size       : 2rem;
+  font-family     : "Comic Sans", arial;
+  font-weight     : 300;
+  text-align      : center;
   background-color: #fff;
-  border: none;
-  border-radius: $radius;
-  padding: $padding;
-  width: 8rem;
-  margin: 0 13px;
+  border          : none;
+  border-radius   : $radius;
+  padding         : $padding;
+  width           : 8rem;
+  margin          : 0 13px;
 
   span {
     font-size: 3rem;
@@ -97,40 +95,40 @@ body {
 
 #input-size {
   max-width: 150px;
-  margin: none;
+  margin   : none;
 }
 
 #start {
-  flex: 1;
-  font-family: $special-font;
-  color: #fff;
-  font-size: 2.1rem;
-  font-weight: bold;
+  flex         : 1;
+  font-family  : $special-font;
+  color        : #fff;
+  font-size    : 2.1rem;
+  font-weight  : bold;
   border-radius: 5px;
-  text-shadow: -1px 0px $border, 0px 1px $border, 1px 0px $border,
+  text-shadow  : -1px 0px $border, 0px 1px $border, 1px 0px $border,
     0px -1px $border;
   background-color: $secondary-color;
-  padding: 3px 8px;
-  border: 1px solid red;
-  margin: 13px 0;
-  box-shadow: 3px 5px 10px $secondary-color;
+  padding         : 3px 8px;
+  border          : 1px solid red;
+  margin          : 13px 0;
+  box-shadow      : 3px 5px 10px $secondary-color;
 }
 
 #footer {
-  position: fixed;
-  width: 100%;
-  display: block;
-  height: 8vh;
-  bottom: 0;
+  position        : relative;
+  width           : 100%;
+  display         : block;
+  height          : 8vh;
   background-color: #dbdcd7;
 }
+
 #bye {
-  display: inline-block;
+  display   : inline-block;
   text-align: center;
-  font-size: 1.6rem;
-  width: 100%;
-  position: absolute;
-  bottom: 10px;
+  font-size : 1.6rem;
+  width     : 100%;
+  position  : absolute;
+  bottom    : 10px;
 
   text-shadow: -1px 0px $border, 0px 1px $border, 1px 0px $border,
     0px -1px $border;
@@ -145,7 +143,7 @@ body {
 
   span {
     font-family: $special-font;
-    color: #fff;
+    color      : #fff;
   }
 
   .heart.icon {
@@ -159,31 +157,31 @@ body {
 
 @mixin grid {
   #grid-container {
-    display: grid;
-    box-sizing: border-box;
-    width: 70vw;
-    height: 70vw;
-    margin: 0 auto 50px auto;
+    display         : grid;
+    box-sizing      : border-box;
+    width           : 70vw;
+    height          : 70vw;
+    margin          : 0 auto 50px auto;
     background-color: transparent;
 
     .grid-item {
-      user-select: none;
-      box-sizing: border-box;
+      user-select     : none;
+      box-sizing      : border-box;
       background-color: #fff;
-      margin: 0;
-      border: 1px solid #aaa;
-      cursor: crosshair;
+      margin          : 0;
+      border          : 1px solid #aaa;
+      cursor          : crosshair;
     }
   }
 }
 
 @mixin form {
   #form {
-    display: block;
-    margin: auto;
+    display : block;
+    margin  : auto;
     position: relative;
-    height: max-content;
-    width: 90%;
+    height  : max-content;
+    width   : 90%;
   }
 }
 
@@ -191,11 +189,13 @@ body {
   .container {
     margin: 5vh auto;
   }
+
   .direction {
-    margin: auto;
-    display: flex;
+    margin        : auto;
+    display       : flex;
     flex-direction: column;
   }
+
   #form {
     .direction {
       margin: auto;
@@ -208,18 +208,23 @@ body {
   @include form();
   @include mobile();
 }
+
 $big: $title-size * 1.6;
+
 @media (orientation: portrait) and (min-width: 640px) {
   @include form();
   @include grid();
   @include mobile();
+
   #title {
     font-size: $big;
   }
+
   .container.l {
-    width: 80%;
+    width : 80%;
     height: max-content;
   }
+
   #start {
     margin-top: 21px;
   }
@@ -229,13 +234,15 @@ $big: $title-size * 1.6;
   @include grid();
 
   .container {
-    align-items: center;
-    margin: 8vh auto auto auto;
+    align-items    : center;
+    margin         : 8vh auto auto auto;
     justify-content: center;
-    text-align: center;
+    text-align     : center;
+
     &.l {
       flex: 3;
     }
+
     &.r {
       flex: 3;
     }
@@ -244,19 +251,21 @@ $big: $title-size * 1.6;
   .direction {
     display: flex;
   }
+
   @include form();
 
   #form {
     max-width: 70%;
+
     .direction {
-      display: flex;
+      display       : flex;
       flex-direction: column;
     }
   }
 
   #grid-container {
     margin-top: 20px;
-    width: 40vw;
-    height: 40vw;
+    width     : 40vw;
+    height    : 40vw;
   }
 }
