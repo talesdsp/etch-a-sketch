@@ -1,16 +1,19 @@
 const {
-  gridSize,
+  Main,
+  countGridItems,
   colorfy,
   randomize,
   validate,
   paint,
   pickColor,
-  setMode,
+  updateGameMode,
   reset,
-  initGrid,
+  changeColor,
+  generateCells,
+  generateContainer,
   Shades,
 } = require("./index");
-const { screen, queryByTestId } = require("@testing-library/dom");
+const { screen } = require("@testing-library/dom");
 require("@testing-library/jest-dom");
 
 /**
@@ -41,17 +44,17 @@ describe("colorfy()", () => {
 });
 
 /**
- * gridSize()
+ * countGridItems()
  */
 
-describe("gridSize()", () => {
+describe("countGridItems()", () => {
   test.each([
     ["0", 1],
     ["1", 2],
     ["3", 8],
     ["6", 64],
   ])("2 ** %i === %i", (a, b) => {
-    expect(gridSize({ value: a })).toEqual(b);
+    expect(countGridItems({ value: a })).toEqual(b);
   });
 });
 
@@ -131,10 +134,10 @@ describe("class Shades", () => {
 });
 
 /**
- * setMode()
+ * updateGameMode()
  */
 
-describe("setMode()", () => {
+describe("updateGameMode()", () => {
   document.body.innerHTML =
     "<div>" +
     "<div data-testId='input-size'></div>" +
@@ -152,7 +155,7 @@ describe("setMode()", () => {
     [/^amador <span>(.{1,9})<\/span>/g, showMode, { value: 4 }],
     [/^PRO <span>(.{1,9})<\/span>/g, showMode, { value: 5 }],
   ])("add element to document", (regex, element, option) => {
-    setMode(element, option);
+    updateGameMode(element, option);
     expect(regex.test(element.innerHTML)).toBeTruthy();
   });
 });
@@ -186,5 +189,87 @@ describe("reset()", () => {
 
     expect(grid.hasChildNodes()).toBeFalsy();
     expect(grid.childNodes.length).toEqual(0);
+  });
+});
+
+/**
+ * changeColor()
+ */
+
+describe("changeColor()", () => {
+  let event;
+
+  beforeEach(() => {
+    event = { target: { style: { backgroundColor: "rgb(50, 50, 50)" } } };
+  });
+
+  it("Should paint it black", () => {
+    document.body.innerHTML =
+      "<select id='select-color'>" +
+      "<option selected='selected' value='black'>black</option>" +
+      "</select>";
+
+    changeColor(event);
+    expect(event.target.style.backgroundColor).toEqual("#000");
+  });
+
+  it("Should paint it randomly", () => {
+    document.body.innerHTML =
+      "<select id='select-color'>" +
+      "<option selected='selected' value='colored'>Rainbow</option>" +
+      "</select>";
+
+    const regex = /rgb\((\d|\d{2}|1\d{2}|2[0-4]\d|2[0-5]{2}), (\d|\d{2}|1\d{2}|2[0-4]\d|2[0-5]{2}), (\d|\d{2}|1\d{2}|2[0-4]\d|2[0-5]{2})\)/g;
+
+    changeColor(event);
+    expect(regex.test(event.target.style.backgroundColor)).toBeTruthy();
+  });
+
+  it("Should paint it brighter", () => {
+    document.body.innerHTML =
+      "<select id='select-color'>" +
+      "<option selected='selected' value='shine'>Shine</option>" +
+      "</select>";
+
+    changeColor(event);
+    expect(event.target.style.backgroundColor).toEqual("rgb(75, 75, 75)");
+  });
+
+  it("Should paint it darker", () => {
+    document.body.innerHTML =
+      "<select id='select-color'>" +
+      "<option selected='selected' value='fade'>Fade</option>" +
+      "</select>";
+
+    changeColor(event);
+    expect(event.target.style.backgroundColor).toEqual("rgb(25, 25, 25)");
+  });
+});
+
+/**
+ * generateContainer()
+ */
+describe("generateContainer", () => {
+  it("Should apply CSS styles to container", () => {
+    document.body.innerHTML =
+      "<div><div data-testId='grid-container'></div></div>";
+    const grid = screen.queryByTestId("grid-container");
+
+    generateContainer(grid, 8);
+    expect(grid.style.gridTemplateRows).toEqual("repeat(8, 1fr)");
+    expect(grid.style.gridTemplateColumns).toEqual("repeat(8, 1fr)");
+  });
+});
+
+/**
+ * generateCells()
+ */
+describe("generateCells", () => {
+  it("Should generate", () => {
+    document.body.innerHTML =
+      "<div><div data-testId='grid-container'></div></div>";
+    const grid = screen.queryByTestId("grid-container");
+    generateCells(grid, 8);
+    expect(grid.childNodes.length).toEqual(64);
   });
 });
