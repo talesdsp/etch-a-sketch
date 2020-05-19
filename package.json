@@ -1,0 +1,18 @@
+{
+  "name": "etch-a-sketch",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:talesdsp/etch-a-sketch.git",
+  "author": "Tales Pereira <42183799+talesdsp@users.noreply.github.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watchAll"
+  },
+  "devDependencies": {
+    "@testing-library/dom": "^7.5.6",
+    "@testing-library/jest-dom": "^5.7.0",
+    "coveralls": "^3.1.0",
+    "jest": "^26.0.1"
+  }
+}
