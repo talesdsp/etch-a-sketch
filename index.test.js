@@ -13,8 +13,58 @@ const {
   generateContainer,
   Shades,
 } = require("./index");
-const { screen } = require("@testing-library/dom");
+const { screen, fireEvent } = require("@testing-library/dom");
 require("@testing-library/jest-dom");
+
+/**
+ * Main()
+ */
+describe("Main()", () => {
+  document.body.innerHTML =
+    "<div>" +
+    "<form id='form' data-testid='form'>" +
+    "<input data-testid='input-size' value='3' type='text' id='input-size' />" +
+    "<button type='button' data-testid='start' id='start'>enviar</button>" +
+    "</form>" +
+    "<span id='show-mode' data-testid='show-mode'>oii</span>" +
+    "<select data-testid='select-color' id='select-color'><option selected='selected' value='black'>black</option></select>" +
+    "<div data-testid='grid-container' id='grid-container'></div>" +
+    "</div>";
+
+  Main();
+
+  let show = screen.queryByTestId("show-mode");
+  let input = screen.queryByTestId("input-size");
+  let button = screen.queryByTestId("start");
+  let grid = screen.queryByTestId("grid-container");
+
+  it("Should render game mode", () => {
+    expect(/^noob <span>(.{1,9})<\/span>/g.test(show.innerHTML)).toBeTruthy();
+  });
+
+  it("Should update game mode", async () => {
+    fireEvent.input(input, { target: { value: 4 } });
+
+    expect(input.value).toEqual("4");
+    expect(/^amador <span>(.{1,9})<\/span>/g.test(show.innerHTML)).toBeTruthy();
+  });
+
+  it("Should render grid cells", () => {
+    fireEvent.input(input, { target: { value: 4 } });
+    fireEvent.pointerDown(button);
+
+    expect(grid.childNodes.length).toEqual(256);
+  });
+
+  it("Should change cell backgroundColor ", () => {
+    fireEvent.pointerDown(button);
+    fireEvent.pointerOver(grid.childNodes[0], {
+      target: { style: { backgroundColor: "#444" } },
+    });
+
+    expect(grid.childNodes[0].style.backgroundColor).toEqual("rgb(0, 0, 0)");
+  });
+});
 
 /**
  * randomize()
@@ -109,6 +159,18 @@ describe("pickColor()", () => {
  */
 
 describe("class Shades", () => {
+  describe("contructor", () => {
+    it("defines backgroundColor with defaultColor", () => {
+      let style = {};
+      expect(new Shades(style).backgroundColor).toEqual("rgb(255, 255, 255)");
+    });
+
+    it("defines backgroundColor with input color", () => {
+      let style = { backgroundColor: "rgb(5, 60, 70)" };
+      expect(new Shades(style).backgroundColor).toEqual("rgb(5, 60, 70)");
+    });
+  });
+
   describe("shine()", () => {
     it("Should add 25 to each field", () => {
       let style = { backgroundColor: "rgb(1, 1, 1)" };
@@ -209,7 +271,7 @@ describe("changeColor()", () => {
       "<option selected='selected' value='black'>black</option>" +
       "</select>";
 
-    changeColor(event);
+    changeColor(event, { value: "black" });
     expect(event.target.style.backgroundColor).toEqual("#000");
   });
 
@@ -221,7 +283,7 @@ describe("changeColor()", () => {
 
     const regex = /rgb\((\d|\d{2}|1\d{2}|2[0-4]\d|2[0-5]{2}), (\d|\d{2}|1\d{2}|2[0-4]\d|2[0-5]{2}), (\d|\d{2}|1\d{2}|2[0-4]\d|2[0-5]{2})\)/g;
 
-    changeColor(event);
+    changeColor(event, { value: "colored" });
     expect(regex.test(event.target.style.backgroundColor)).toBeTruthy();
   });
 
@@ -231,7 +293,7 @@ describe("changeColor()", () => {
       "<option selected='selected' value='shine'>Shine</option>" +
       "</select>";
 
-    changeColor(event);
+    changeColor(event, { value: "shine" });
     expect(event.target.style.backgroundColor).toEqual("rgb(75, 75, 75)");
   });
 
@@ -241,7 +303,7 @@ describe("changeColor()", () => {
       "<option selected='selected' value='fade'>Fade</option>" +
       "</select>";
 
-    changeColor(event);
+    changeColor(event, { value: "fade" });
     expect(event.target.style.backgroundColor).toEqual("rgb(25, 25, 25)");
   });
 });
