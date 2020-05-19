@@ -1,38 +1,81 @@
 "use strict";
 
-const inputSize = document.querySelector("#input-size");
-const showMode = document.querySelector("#show-mode");
+/**
+ * Core of the application
+ * @returns {void}
+ */
 
 window.onload = function main() {
-  setMode(showMode, inputSize);
+  const inputSize = document.querySelector("#input-size");
+  const showMode = document.querySelector("#show-mode");
 
-  inputSize.addEventListener("input", () => setMode(showMode, inputSize));
+  updateGameMode(showMode, inputSize);
+
+  inputSize.addEventListener("input", () =>
+    updateGameMode(showMode, inputSize)
+  );
 
   document.querySelector("#form").addEventListener("submit", (e) => {
     e.preventDefault();
-    initGrid();
+
+    const gridContainer = document.querySelector("#grid-container");
+    reset(gridContainer);
+    generateContainer(gridContainer, countGridItems(inputSize));
+    generateCells(gridContainer, countGridItems(inputSize));
+
+    const gridList = document.querySelectorAll(".grid-item");
+    gridList.forEach((item) => {
+      item.addEventListener("pointerenter", (e) => changeColor(e));
+    });
   });
 };
 
-function setMode(showMode, { value }) {
+/**
+ * @description Generate grid cells on screen
+ * @param {Element} gridContainer
+ * @param {number} size
+ * @returns {void}
+ */
+
+function generateCells(gridContainer, size) {
+  const area = size ** 2;
+
+  for (let i = 0; i < area; i++) {
+    const gridItem = document.createElement("div");
+    gridItem.classList.add("grid-item");
+    gridContainer.appendChild(gridItem);
+  }
+}
+
+/**
+ * @description Generate grid container on screen
+ * @param {Element} gridContainer
+ * @param {number} size
+ * @returns {void}
+ */
+
+function generateContainer(gridContainer, size) {
+  gridContainer.style.gridTemplateRows = `repeat(${size}, 1fr)`;
+  gridContainer.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
+}
+
+/**
+ * @description Append string with current mode and emoji into showMode element
+ * @param {Element} showMode
+ * @param {HTMLInputElement} inputSize
+ */
+
+function updateGameMode(showMode, inputSize) {
   showMode.innerHTML = {
     3: () => "noob <span>&#x1F92A;</span>",
     4: () => "amador <span>&#x1F923;</span>",
     5: () => "PRO <span>&#x1F911;</span>",
-  }[value]();
-}
-
-function initGrid() {
-  const gridContainer = document.querySelector("#grid-container");
-
-  reset(gridContainer);
-
-  startApp(gridContainer, gridSize(inputSize));
+  }[inputSize.value]();
 }
 
 /**
- * @param {HTMLElement} gridContainer
- * @description removes this element's childNodes
+ * @description Removes this element's childNodes
+ * @param {Element} gridContainer
  * @example
  * before:
  * <div id="element">
@@ -42,43 +85,51 @@ function initGrid() {
  *
  * after:
  * <div id="element"></div>
+ * @returns {void}
  */
+
 function reset(gridContainer) {
   while (gridContainer.hasChildNodes()) {
     gridContainer.removeChild(gridContainer.firstChild);
   }
 }
 
-function gridSize({ value }) {
-  return 2 ** parseInt(value, 10);
+/**
+ * @param {HTMLInputElement} element
+ * @description Generate grid's number of cells which is 2^element
+ * @returns {number}
+ */
+function countGridItems(element) {
+  return 2 ** parseInt(element.value, 10);
 }
 
-function startApp(gridContainer, size) {
-  gridContainer.style.gridTemplateRows = `repeat(${size}, 1fr)`;
-  gridContainer.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
+/**
+ * @description Change backgroundColor of the hovered cell
+ * @param {PointerEvent} event
+ * @returns {void}
+ */
 
-  const area = size ** 2;
-  for (let i = 0; i < area; i++) {
-    const gridItem = document.createElement("div");
-    gridItem.classList.add("grid-item");
-    gridContainer.appendChild(gridItem);
-  }
-
-  const gridList = document.querySelectorAll(".grid-item");
-  gridList.forEach((item) => {
-    item.addEventListener("pointerenter", (e) => cb(e));
-  });
-}
-
-function cb({ target: { style } }) {
+function changeColor(event) {
   const value = document.querySelector("#select-color").value;
-  paint(style, pickColor(style, value));
+  paint(event.target.style, pickColor(event.target.style, value));
 }
 
+/**
+ * @description Change selected grid's backgroundColor
+ * @param {CSSStyleDeclaration} style
+ * @param {string} actualColor
+ * @returns {void}
+ */
 function paint(style, actualColor) {
   style.backgroundColor = actualColor;
 }
 
+/**
+ * @description Return selected color
+ * @param {CSSStyleDeclaration} style
+ * @param {string} color
+ * @returns {string}
+ */
 function pickColor(style, color) {
   const palette = {
     black: () => "#000",
@@ -89,10 +140,18 @@ function pickColor(style, color) {
   return palette[color]();
 }
 
+/**
+ * @description Generates a random color each time.
+ * @returns {string}
+ */
 function colorfy() {
   return `rgb(${randomize()}, ${randomize()}, ${randomize()})`;
 }
 
+/**
+ * @description Generates a pseudo-random number <= 255 each time.
+ * @returns {number}
+ */
 function randomize() {
   return Math.floor(Math.random() * 255);
 }
@@ -110,7 +169,10 @@ class Shades {
   }
 
   /**
-   * @description gets brighter until a 255 shows up in rgb
+   * @description backgroundColor gets brighter until a 255 shows up in rgb
+   * @example
+   * const style = { backgroundColor: "rgb(1, 2, 3)"}
+   * const result = new Shades(style).shine(); // rgb(26, 27, 28)
    * @returns {string}
    */
 
@@ -121,7 +183,10 @@ class Shades {
   }
 
   /**
-   * @description gets darker, until a 25 shows up in rgb
+   * @description backgroundColor gets darker, until a 25 shows up in rgb
+   * @example
+   * const style = { backgroundColor: "rgb(100, 100, 50)"}
+   * const result = new Shades(style).fade(); // rgb(75, 75, 25)
    * @returns {string}
    */
   fade() {
@@ -135,8 +200,7 @@ class Shades {
  * @param {string} bgColor
  * @description extract numbers from rgb
  * @example
- * let array = validate("rgb(1, 2, 3)")
- * array === [1, 2, 3]
+ * let array = validate("rgb(1, 2, 3)"); // [1, 2, 3]
  * @returns {number[]}
  */
 function validate(bgColor) {
@@ -144,15 +208,16 @@ function validate(bgColor) {
 }
 
 module.exports = {
-  setMode,
-  initGrid,
+  updateGameMode,
+  generateCells,
+  generateContainer,
   reset,
-  gridSize,
-  startApp,
-  cb,
+  countGridItems,
+  changeColor,
   paint,
   pickColor,
   colorfy,
+  changeColor,
   randomize,
   Shades,
   validate,
